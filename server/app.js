@@ -1,20 +1,16 @@
 const express = require("express");
-const messages = require("./utils/messages");
-const Message = require("./message.model");
+const messagesRouter = require("./routers/messages");
+const usersRouter = require("./routers/users");
+
 
 const app = express();
 const port = process.env.PORT || 3000;
 
 app.use(express.json());
 
-app.post("/send", async (req, res) => {
-  const { sender, receiver, message, subject, creationDate } = req.body;
-
-  let newMsg = new Message(sender, receiver, message, subject, creationDate);
-  messages.sendMessage(newMsg);
-
-  res.send(newMsg);
-});
+// Routers
+app.use(messagesRouter);
+app.use(usersRouter);
 
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);
