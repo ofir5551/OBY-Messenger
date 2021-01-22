@@ -1,0 +1,39 @@
+<form [formGroup]="composeEmailForm" (ngSubmit)="onSubmit()">
+  <!-- Sender -->
+  <input
+    class="form-control"
+    type="text"
+    placeholder="Sender"
+    formControlName="sender"
+  />
+
+  <!-- Receiver -->
+  <input
+    class="form-control"
+    type="text"
+    placeholder="Receiver"
+    formControlName="receiver"
+  />
+
+  <!-- Subject -->
+  <input
+    class="form-control"
+    type="text"
+    placeholder="Subject"
+    formControlName="subject"
+  />
+
+  <!-- Message -->
+  <textarea
+    class="form-control"
+    rows="5"
+    placeholder="Message"
+    formControlName="message"
+  ></textarea>
+
+  <button type="submit" class="btn btn-primary">Send</button>
+</form>
+
+<div class="alert alert-success" role="alert" *ngIf="sentSuccessfully">
+  Message sent to {{ newMessage.receiver }} successfully
+</div>

@@ -1,13 +1,25 @@
 const fs = require("fs").promises;
+const Message = require("../models/message.model");
 const filePath = __dirname + "/../storage/messages.storage.json";
 
-const sendMessage = async (newMessage) => {
+const sendMessage = async (req) => {
   try {
+    const { sender, receiver, message, subject, creationDate } = req.body;
+    let newMessage = new Message(
+      sender,
+      receiver,
+      message,
+      subject,
+      creationDate
+    );
+
     let messagesArray = await loadMessages();
 
     // Save the new message to JSON file
     messagesArray.push(newMessage);
     await fs.writeFile(filePath, JSON.stringify(messagesArray));
+
+    return newMessage;
   } catch (err) {
     throw new Error(err.message);
   }

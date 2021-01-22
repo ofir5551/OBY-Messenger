@@ -1,27 +1,24 @@
 const express = require("express");
 const router = new express.Router();
-const Message = require("../models/message.model");
 const utils = require("../utils/messages");
+const auth = require("../utils/auth");
 
 router.post("/messages/send", async (req, res) => {
   try {
-    const { sender, receiver, message, subject, creationDate } = req.body;
-    let newMsg = new Message(sender, receiver, message, subject, creationDate);
+    let newMessage = await utils.sendMessage(req);
 
-    await utils.sendMessage(newMsg);
-
+    console.log(newMessage);
     res.status(201).send({
-      message: `The message has been sent to (userId: ${newMsg.receiver}) successfully`,
+      message: `The message has been sent to (userId: ${newMessage.receiver}) successfully`,
     });
   } catch (err) {
     res.status(400).send({ error: err.message });
   }
 });
 
-router.get("/messages/get/:userId", async (req, res) => {
+router.get("/messages/get", auth, async (req, res) => {
   try {
-    const userId = req.params.userId;
-    let userMessages = await utils.getMessages(userId);
+    let userMessages = await utils.getMessages(req.user.userId);
 
     res
       .status(200)
