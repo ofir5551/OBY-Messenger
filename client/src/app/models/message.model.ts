@@ -3,5 +3,6 @@ export interface Message {
   receiver: String;
   subject: String;
   message: String;
-  creationDate: Date;
+  creationDate: string;
+  msgId?: number;
 }

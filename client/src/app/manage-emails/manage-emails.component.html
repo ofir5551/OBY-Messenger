@@ -1,1 +1,51 @@
-<p>manage-emails works!</p>
+<div class="text-center">
+  <h1>Manage</h1>
+
+  <div
+    class="btn-group-toggle d-flex justify-content-center"
+    data-toggle="buttons"
+  >
+    <label class="btn btn-primary shadow-none active mr-4">
+      <input
+        type="checkbox"
+        name="options"
+        checked
+        (change)="displaySent = !displaySent"
+      />
+      Sent
+    </label>
+    <label class="btn btn-primary shadow-none active ml-4">
+      <input
+        type="checkbox"
+        name="options"
+        checked
+        (change)="displayReceived = !displayReceived"
+      />
+      Received
+    </label>
+  </div>
+  <hr />
+  <div class="row mt-3">
+    <div class="col-sm-6" *ngIf="displaySent">
+      <h1 class="text-center">Sent</h1>
+      <app-email
+        *ngFor="let email of sentMessagesArray"
+        [email]="email"
+      ></app-email>
+      <div class="text-center" *ngIf="sentMessagesArray.length == 0">
+        <p>You haven't sent any messages yet.</p>
+        <p>Click <a routerLink="/compose">here</a> to do so</p>
+      </div>
+    </div>
+    <div class="col-sm-6" *ngIf="displayReceived">
+      <h1 class="text-center">Received</h1>
+      <app-email
+        *ngFor="let email of receivedMessagesArray"
+        [email]="email"
+      ></app-email>
+      <div class="text-center" *ngIf="receivedMessagesArray.length == 0">
+        <p>You don't have any messages.</p>
+      </div>
+    </div>
+  </div>
+</div>

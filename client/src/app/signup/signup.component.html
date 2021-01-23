@@ -1,1 +1,33 @@
-<p>signup works!</p>
+<h1 class="text-center">Sign up</h1>
+<form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+  <!-- Username -->
+  <input
+    class="form-control"
+    type="text"
+    placeholder="Username"
+    formControlName="username"
+  />
+
+  <!-- Password -->
+  <input
+    class="form-control"
+    type="password"
+    placeholder="Password"
+    formControlName="password"
+  />
+
+  <!-- Submit button -->
+  <div class="text-center">
+    <button
+      [disabled]="!signupForm.valid"
+      type="submit"
+      class="btn btn-primary btn-lg"
+    >
+      Sign Up
+    </button>
+  </div>
+</form>
+
+<div class="alert alert-danger registrationError" role="alert" *ngIf="registrationError">
+  {{registrationError}}
+</div>

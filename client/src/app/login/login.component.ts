@@ -10,6 +10,7 @@ import { AuthService } from '../services/auth.service';
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
+  invalidCredentials:boolean = false;
 
   constructor(private authService: AuthService, private router: Router) {}
 
@@ -29,7 +30,7 @@ export class LoginComponent implements OnInit {
     this.authService.login(credentials).subscribe(response => {
       this.router.navigateByUrl('/');
     }, err => {
-      console.log('Wrong credentials!')
+      this.invalidCredentials = true;
     })
   }
 }

@@ -5,6 +5,9 @@ const filePath = __dirname + "/../storage/users.storage.json";
 
 const signup = async (req) => {
   try {
+    if (!req.body.username || !req.body.password) {
+      throw new Error("Please provide a username and password");
+    }
     const { username, password } = req.body;
     let newUser = new User(username, password);
 
@@ -16,6 +19,7 @@ const signup = async (req) => {
     }
 
     newUser.userId = await assignUserId();
+    newUser.token = generateAuthToken(newUser);
     // Save the new user to JSON file
     usersArray.push(newUser);
     await fs.writeFile(filePath, JSON.stringify(usersArray));

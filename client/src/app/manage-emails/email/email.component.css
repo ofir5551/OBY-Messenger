@@ -1,0 +1,19 @@
+.delete-btn {
+    margin-right: 15px;
+    padding:0px;
+    color: red;
+    cursor: pointer;
+}
+
+.card-footer {
+    height: 30px;
+    padding: 0px;
+}
+
+.msg-date {
+    margin-left: 15px;
+}
+
+.card {
+    margin-bottom: 15px;
+}

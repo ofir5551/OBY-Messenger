@@ -1,20 +1,33 @@
-<h1>Login</h1>
+<h1 class="text-center">Login</h1>
 <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-    <!-- Sender -->
-    <input
-      class="form-control"
-      type="text"
-      placeholder="Username"
-      formControlName="username"
-    />
-  
-    <!-- Receiver -->
-    <input
-      class="form-control"
-      type="password"
-      placeholder="Password"
-      formControlName="password"
-    />
-  
-    <button type="submit" class="btn btn-primary">Login</button>
-  </form>
+  <!-- Username -->
+  <input
+    class="form-control"
+    type="text"
+    placeholder="Username"
+    formControlName="username"
+  />
+
+  <!-- Password -->
+  <input
+    class="form-control"
+    type="password"
+    placeholder="Password"
+    formControlName="password"
+  />
+
+  <!-- Submit button -->
+  <div class="text-center">
+    <button
+      [disabled]="!loginForm.valid"
+      type="submit"
+      class="btn btn-primary btn-lg"
+    >
+      Login
+    </button>
+  </div>
+</form>
+
+<div class="alert alert-danger invalidCredentials" role="alert" *ngIf="invalidCredentials">
+  Wrong username or password, please try again
+</div>

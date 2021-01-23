@@ -7,9 +7,13 @@ router.post("/users/signup", async (req, res) => {
   try {
     let newUser = await utils.signup(req);
 
-    res.status(201).send({
-      message: `New user '${newUser.username}' has signed up (id = ${newUser.userId}))`,
-    });
+    res
+      .status(201)
+      .send({
+        user: newUser.username,
+        userId: newUser.userId,
+        token: newUser.token,
+      });
   } catch (err) {
     res.status(400).send({ error: err.message });
   }
@@ -19,13 +23,11 @@ router.post("/users/login", async (req, res) => {
   try {
     let user = await utils.login(req);
 
-    res
-      .status(200)
-      .send({
-        username: user.username,
-        userId: user.userId,
-        token: user.token,
-      });
+    res.status(200).send({
+      username: user.username,
+      userId: user.userId,
+      token: user.token,
+    });
   } catch (err) {
     res.status(400).send({ error: err.message });
   }

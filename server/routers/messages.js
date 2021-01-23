@@ -7,7 +7,6 @@ router.post("/messages/send", async (req, res) => {
   try {
     let newMessage = await utils.sendMessage(req);
 
-    console.log(newMessage);
     res.status(201).send({
       message: `The message has been sent to (userId: ${newMessage.receiver}) successfully`,
     });
@@ -32,10 +31,10 @@ router.get("/messages/get", auth, async (req, res) => {
   }
 });
 
-router.delete("/messages/delete/:index", async (req, res) => {
+router.delete("/messages/delete/:id", async (req, res) => {
   try {
-    const msgIndex = req.params.index;
-    let deletedMsg = await utils.deleteMessage(msgIndex);
+    const msgId = req.params.id;
+    let deletedMsg = await utils.deleteMessage(msgId);
 
     res
       .status(200)

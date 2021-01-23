@@ -10,21 +10,24 @@ import { AuthService } from '../services/auth.service';
 export class NavBarComponent implements OnInit, OnDestroy {
   isAuthenticated: boolean = false;
   userSubscription = new Subscription();
+  loggedUsername: string;
 
   constructor(private authService: AuthService) {}
 
   ngOnInit(): void {
-    this.userSubscription = this.authService.currentUser.subscribe(
-      (user) => {
-        this.isAuthenticated = user ? true : false;
+    this.userSubscription = this.authService.currentUser.subscribe((user) => {
+      if (user) {
+        this.isAuthenticated = true;
+        this.loggedUsername = user.username;
+      } else {
+        this.isAuthenticated = false;
       }
-    );
+    });
   }
 
   onLogout() {
     this.authService.logout();
   }
-
 
   ngOnDestroy(): void {
     this.userSubscription.unsubscribe();

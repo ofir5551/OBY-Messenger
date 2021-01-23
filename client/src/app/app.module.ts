@@ -11,6 +11,8 @@ import { ManageEmailsComponent } from './manage-emails/manage-emails.component';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
+import { EmailComponent } from './manage-emails/email/email.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,9 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';
     ManageEmailsComponent,
     LoginComponent,
     SignupComponent,
-    NavBarComponent
+    NavBarComponent,
+    EmailComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,

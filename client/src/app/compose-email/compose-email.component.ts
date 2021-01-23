@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import * as moment from 'moment';
+moment().format();
 import { Message } from '../models/message.model';
 import { MessagesService } from '../services/messages.service';
 
@@ -32,7 +34,7 @@ export class ComposeEmailComponent implements OnInit {
       receiver: this.composeEmailForm.get('receiver').value,
       subject: this.composeEmailForm.get('subject').value,
       message: this.composeEmailForm.get('message').value,
-      creationDate: new Date(),
+      creationDate: moment().format('DD/MM/YYYY - HH:mm'),
     };
 
     this.messagesService.sendMessage(this.newMessage).subscribe((response) => {

@@ -1,11 +1,16 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ComposeEmailComponent } from './compose-email/compose-email.component';
+import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { ManageEmailsComponent } from './manage-emails/manage-emails.component';
 import { SignupComponent } from './signup/signup.component';
 
 const routes: Routes = [
+  {
+    path: '',
+    component: HomeComponent,
+  },
   {
     path: 'compose',
     component: ComposeEmailComponent,

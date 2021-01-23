@@ -1,9 +1,10 @@
+<h1 class="text-center">Compose</h1>
 <form [formGroup]="composeEmailForm" (ngSubmit)="onSubmit()">
   <!-- Sender -->
   <input
     class="form-control"
     type="text"
-    placeholder="Sender"
+    placeholder="Sender ID"
     formControlName="sender"
   />
 
@@ -11,7 +12,7 @@
   <input
     class="form-control"
     type="text"
-    placeholder="Receiver"
+    placeholder="Receiver ID"
     formControlName="receiver"
   />
 
@@ -31,7 +32,16 @@
     formControlName="message"
   ></textarea>
 
-  <button type="submit" class="btn btn-primary">Send</button>
+  <!-- Submit button -->
+  <div class="text-center">
+    <button
+      [disabled]="!composeEmailForm.valid"
+      type="submit"
+      class="btn btn-primary btn-lg"
+    >
+      Send
+    </button>
+  </div>
 </form>
 
 <div class="alert alert-success" role="alert" *ngIf="sentSuccessfully">
