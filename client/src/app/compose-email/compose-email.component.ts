@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import * as moment from 'moment';
 moment().format();
@@ -14,8 +15,13 @@ export class ComposeEmailComponent implements OnInit {
   public composeEmailForm: FormGroup;
   newMessage: Message;
   sentSuccessfully: boolean;
+  @ViewChild('receiverUsername') receiverUsername: ElementRef;
+  @ViewChild('senderUsername') senderUsername: ElementRef;
 
-  constructor(private messagesService: MessagesService) {}
+  constructor(
+    private messagesService: MessagesService,
+    private http: HttpClient
+  ) {}
 
   ngOnInit(): void {
     this.composeEmailForm = new FormGroup({
@@ -41,5 +47,27 @@ export class ComposeEmailComponent implements OnInit {
       this.sentSuccessfully = true;
       this.composeEmailForm.reset();
     });
+  }
+
+  onChangeInput(inputName: string) {
+    let userId = this.composeEmailForm.get(inputName).value;
+    let field: ElementRef =
+      inputName == 'receiver' ? this.receiverUsername : this.senderUsername;
+
+    this.http
+      .get<{ username: string }>(
+        `/users/getUsername/${userId}`
+      )
+      .subscribe(
+        (response) => {
+          field.nativeElement.innerHTML = `✓ ${response.username}`;
+          field.nativeElement.style.color = 'green';
+        },
+        (err) => {
+          field.nativeElement.innerHTML = `✕ User with id ${userId} not found. Please check the Users List`;
+          field.nativeElement.style.color = 'red';
+          this.composeEmailForm.get(inputName).setErrors({'invalid_username': true});
+        }
+      );
   }
 }

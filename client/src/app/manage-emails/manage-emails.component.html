@@ -1,6 +1,5 @@
-<div class="text-center">
-  <h1>Manage</h1>
-
+<h1 class="text-center">Manage</h1>
+<div class="text-center" *ngIf="isLoggedIn; else pleaseLogin">
   <div
     class="btn-group-toggle d-flex justify-content-center"
     data-toggle="buttons"
@@ -29,8 +28,8 @@
     <div class="col-sm-6" *ngIf="displaySent">
       <h1 class="text-center">Sent</h1>
       <app-email
-        *ngFor="let email of sentMessagesArray"
-        [email]="email"
+        *ngFor="let sentEmail of sentMessagesArray"
+        [email]="sentEmail"
       ></app-email>
       <div class="text-center" *ngIf="sentMessagesArray.length == 0">
         <p>You haven't sent any messages yet.</p>
@@ -40,8 +39,8 @@
     <div class="col-sm-6" *ngIf="displayReceived">
       <h1 class="text-center">Received</h1>
       <app-email
-        *ngFor="let email of receivedMessagesArray"
-        [email]="email"
+        *ngFor="let receivedEmail of receivedMessagesArray"
+        [email]="receivedEmail"
       ></app-email>
       <div class="text-center" *ngIf="receivedMessagesArray.length == 0">
         <p>You don't have any messages.</p>
@@ -49,3 +48,9 @@
     </div>
   </div>
 </div>
+
+<ng-template #pleaseLogin>
+  <div class="text-center">
+    <p>Please <a routerLink="/login">login</a> in order to use this page.</p>
+  </div>
+</ng-template>

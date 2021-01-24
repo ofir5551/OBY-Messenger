@@ -601,13 +601,13 @@ class MessagesService {
         this.userMessagesSubject = new rxjs__WEBPACK_IMPORTED_MODULE_2__["Subject"]();
     }
     sendMessage(newMessage) {
-        return this.http.post('http://localhost:3000/messages/send', newMessage);
+        return this.http.post('/messages/send', newMessage);
     }
     getMessages() {
         const token = JSON.parse(localStorage.getItem('userData')).token;
         const headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpHeaders"]().set('Authorization', `Bearer ${token}`);
         this.http
-            .get('http://localhost:3000/messages/get', {
+            .get('/messages/get', {
             headers: headers,
         })
             .subscribe((response) => {
@@ -615,7 +615,7 @@ class MessagesService {
         });
     }
     deleteMessage(messageId) {
-        return this.http.delete(`http://localhost:3000/messages/delete/${messageId}`);
+        return this.http.delete(`/messages/delete/${messageId}`);
     }
 }
 MessagesService.ɵfac = function MessagesService_Factory(t) { return new (t || MessagesService)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"])); };
@@ -1115,7 +1115,7 @@ class AuthService {
     }
     signup(credentials) {
         return this.http
-            .post('http://localhost:3000/users/signup', credentials)
+            .post('/users/signup', credentials)
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["tap"])((response) => {
             const user = new _models_user_model__WEBPACK_IMPORTED_MODULE_4__["User"](response.username, response.userId, response.token);
             localStorage.setItem('userData', JSON.stringify(user));
@@ -1124,7 +1124,7 @@ class AuthService {
     }
     login(credentials) {
         return this.http
-            .post('http://localhost:3000/users/login', credentials)
+            .post('/users/login', credentials)
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["tap"])((response) => {
             const user = new _models_user_model__WEBPACK_IMPORTED_MODULE_4__["User"](response.username, response.userId, response.token);
             localStorage.setItem('userData', JSON.stringify(user));
@@ -1135,7 +1135,7 @@ class AuthService {
         const token = JSON.parse(localStorage.getItem('userData')).token;
         const headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_0__["HttpHeaders"]().set('Authorization', `Bearer ${token}`);
         this.http
-            .post('http://localhost:3000/users/logout', {}, { headers: headers })
+            .post('/users/logout', {}, { headers: headers })
             .subscribe((response) => {
             this.currentUser.next(null);
             localStorage.removeItem('userData');
@@ -1307,12 +1307,12 @@ const routes = [
 class AppRoutingModule {
 }
 AppRoutingModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineNgModule"]({ type: AppRoutingModule });
-AppRoutingModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function AppRoutingModule_Factory(t) { return new (t || AppRoutingModule)(); }, imports: [[_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"].forRoot(routes, { useHash: false })], _angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"]] });
+AppRoutingModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function AppRoutingModule_Factory(t) { return new (t || AppRoutingModule)(); }, imports: [[_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"].forRoot(routes, { useHash: true })], _angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"]] });
 (function () { (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵsetNgModuleScope"](AppRoutingModule, { imports: [_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"]], exports: [_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"]] }); })();
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](AppRoutingModule, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"],
         args: [{
-                imports: [_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"].forRoot(routes, { useHash: false })],
+                imports: [_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"].forRoot(routes, { useHash: true })],
                 exports: [_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"]],
             }]
     }], null, null); })();

@@ -13,6 +13,8 @@ import { SignupComponent } from './signup/signup.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { EmailComponent } from './manage-emails/email/email.component';
 import { HomeComponent } from './home/home.component';
+import { UsersListComponent } from './users-list/users-list.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,9 @@ import { HomeComponent } from './home/home.component';
     SignupComponent,
     NavBarComponent,
     EmailComponent,
-    HomeComponent
+    HomeComponent,
+    UsersListComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,

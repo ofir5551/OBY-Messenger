@@ -17,6 +17,7 @@ export class ManageEmailsComponent implements OnInit, OnDestroy {
 
   displayReceived: boolean = true;
   displaySent: boolean = true;
+  isLoggedIn: boolean;
 
   constructor(
     private messagesService: MessagesService,
@@ -24,13 +25,16 @@ export class ManageEmailsComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    this.isLoggedIn = this.authService.isLoggedIn();
     this.userMessagesSubscription = this.messagesService.userMessagesSubject.subscribe(
       (messages) => {
         this.sortMessages(messages);
       }
     );
 
-    this.onGetMessages();
+    if (this.isLoggedIn) {
+      this.onGetMessages();
+    }
   }
 
   private sortMessages(messages: Message[]) {

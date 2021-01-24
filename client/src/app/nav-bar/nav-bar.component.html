@@ -32,6 +32,15 @@
           >Manage</a
         >
       </li>
+      <li class="nav-item" routerLinkActive="active">
+        <a
+          class="nav-link"
+          data-toggle="collapse"
+          data-target=".navbar-collapse.show"
+          routerLink="/usersList"
+          >Users List</a
+        >
+      </li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
       <li class="nav-item" routerLinkActive="active" *ngIf="!isAuthenticated">

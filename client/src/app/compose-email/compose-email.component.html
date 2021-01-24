@@ -6,7 +6,9 @@
     type="text"
     placeholder="Sender ID"
     formControlName="sender"
+    (change)="onChangeInput('sender')"
   />
+  <span #senderUsername style="position:relative"></span>
 
   <!-- Receiver -->
   <input
@@ -14,7 +16,9 @@
     type="text"
     placeholder="Receiver ID"
     formControlName="receiver"
+    (change)="onChangeInput('receiver')"
   />
+  <span #receiverUsername style="position:relative"></span>
 
   <!-- Subject -->
   <input

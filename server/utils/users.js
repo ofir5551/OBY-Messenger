@@ -61,6 +61,31 @@ const logout = async (user) => {
   return user;
 };
 
+const getList = async () => {
+  try {
+    let usersArray = await loadUsers();
+
+    usersArray.forEach((user) => {
+      delete user.password;
+      delete user.token;
+    });
+
+    return usersArray;
+  } catch (err) {
+    throw new Error(err.message);
+  }
+};
+
+const getUsernameById = async (req) => {
+  let user = await findUserById(req.params.id);
+
+  if (user) {
+    return user.username;
+  } else {
+    throw new Error("User not found");
+  }
+};
+
 // --------------- Private methods ---------------
 const loadUsers = async () => {
   let file = await fs.readFile(filePath);
@@ -103,6 +128,9 @@ const validateCredentials = (req, usersArray) => {
 };
 
 const findUserById = async (userId) => {
+  if (typeof userId != 'number') {
+    userId = Number(userId);
+  }
   let usersArray = await loadUsers();
   let user = usersArray.find((element) => element.userId === userId);
 
@@ -113,5 +141,7 @@ module.exports = {
   signup,
   login,
   logout,
+  getList,
+  getUsernameById,
   findUserById,
 };

@@ -9,13 +9,18 @@ import { MessagesService } from 'src/app/services/messages.service';
 })
 export class EmailComponent implements OnInit {
   @Input() email: Message;
+  msgIdToBeDeleted: number;
 
   constructor(private messagesService: MessagesService) {}
 
   ngOnInit(): void {}
 
-  onDeleteMessage() {
-    this.messagesService.deleteMessage(this.email.msgId).subscribe(
+  onPrintId() {
+    console.log(this.msgIdToBeDeleted);
+  }
+
+  onDeleteMessage(msgId) {
+    this.messagesService.deleteMessage(msgId).subscribe(
       (response) => {
         this.messagesService.getMessages();
       },

@@ -9,12 +9,13 @@ import { User } from '../models/user.model';
 })
 export class AuthService {
   currentUser = new BehaviorSubject<User>(null);
+  loggedIn:boolean = false;
 
   constructor(private http: HttpClient) {}
 
   signup(credentials): Observable<User> {
     return this.http
-      .post<User>('http://localhost:3000/users/signup', credentials)
+      .post<User>('/users/signup', credentials)
       .pipe(
         tap((response) => {
           const user = new User(
@@ -24,7 +25,7 @@ export class AuthService {
           );
 
           localStorage.setItem('userData', JSON.stringify(user));
-
+          this.loggedIn = true;
           this.currentUser.next(user);
         })
       );
@@ -32,7 +33,7 @@ export class AuthService {
 
   login(credentials): Observable<User> {
     return this.http
-      .post<User>('http://localhost:3000/users/login', credentials)
+      .post<User>('/users/login', credentials)
       .pipe(
         tap((response) => {
           const user = new User(
@@ -42,7 +43,7 @@ export class AuthService {
           );
 
           localStorage.setItem('userData', JSON.stringify(user));
-
+          this.loggedIn = true;
           this.currentUser.next(user);
         })
       );
@@ -51,12 +52,18 @@ export class AuthService {
   logout(): void {
     const token = JSON.parse(localStorage.getItem('userData')).token;
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    this.http
-      .post('http://localhost:3000/users/logout', {}, { headers: headers })
-      .subscribe((response) => {
+    this.http.post('/users/logout', {}, { headers: headers }).subscribe(
+      (response) => {
+        this.loggedIn = false;
         this.currentUser.next(null);
         localStorage.removeItem('userData');
-      });
+      },
+      (err) => {
+        this.loggedIn = false;
+        this.currentUser.next(null);
+        localStorage.removeItem('userData');
+      }
+    );
   }
 
   // This keeps the user logged in until he manually logs out
@@ -71,16 +78,16 @@ export class AuthService {
       return;
     }
 
-    const user = new User(
-      userData.username,
-      userData.userId,
-      userData.token
-    );
-
+    const user = new User(userData.username, userData.userId, userData.token);
+    this.loggedIn = true;
     this.currentUser.next(user);
   }
 
   getCurrentUserDetails() {
     return this.currentUser.value;
+  }
+
+  isLoggedIn(): boolean {
+    return this.loggedIn;
   }
 }

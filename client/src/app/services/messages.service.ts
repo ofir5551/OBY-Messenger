@@ -12,7 +12,7 @@ export class MessagesService {
 
   sendMessage(newMessage: Message): Observable<Message> {
     return this.http.post<Message>(
-      'http://localhost:3000/messages/send',
+      '/messages/send',
       newMessage
     );
   }
@@ -22,7 +22,7 @@ export class MessagesService {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
 
     this.http
-      .get<Message[]>('http://localhost:3000/messages/get', {
+      .get<Message[]>('/messages/get', {
         headers: headers,
       })
       .subscribe((response) => {
@@ -32,7 +32,7 @@ export class MessagesService {
 
   deleteMessage(messageId: number) {
     return this.http.delete(
-      `http://localhost:3000/messages/delete/${messageId}`
+      `/messages/delete/${messageId}`
     );
   }
 }
