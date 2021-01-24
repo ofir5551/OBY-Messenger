@@ -1188,7 +1188,7 @@ class UsersListComponent {
     }
     getUsersList() {
         this.http
-            .get('http://localhost:3000/users/list')
+            .get('/users/list')
             .subscribe((response) => {
             this.usersList = response;
         }, err => console.log(err));
