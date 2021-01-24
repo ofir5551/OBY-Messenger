@@ -18,9 +18,10 @@ export class UsersListComponent implements OnInit {
 
   getUsersList() {
     this.http
-      .get<User[]>('/users/list')
+      .get<User[]>('http://localhost:3000/users/list')
       .subscribe((response) => {
         this.usersList = response;
-      });
+      },
+      err => console.log(err));
   }
 }

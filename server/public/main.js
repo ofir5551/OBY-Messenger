@@ -1188,10 +1188,10 @@ class UsersListComponent {
     }
     getUsersList() {
         this.http
-            .get('/users/list')
+            .get('http://localhost:3000/users/list')
             .subscribe((response) => {
             this.usersList = response;
-        });
+        }, err => console.log(err));
     }
 }
 UsersListComponent.ɵfac = function UsersListComponent_Factory(t) { return new (t || UsersListComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"])); };
