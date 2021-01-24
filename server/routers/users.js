@@ -10,7 +10,7 @@ router.post("/users/signup", async (req, res) => {
     res
       .status(201)
       .send({
-        user: newUser.username,
+        username: newUser.username,
         userId: newUser.userId,
         token: newUser.token,
       });

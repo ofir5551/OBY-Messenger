@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     const credentials = {
-      username: this.loginForm.get('username').value,
+      username: this.loginForm.get('username').value.toLowerCase(),
       password: this.loginForm.get('password').value,
     };
 

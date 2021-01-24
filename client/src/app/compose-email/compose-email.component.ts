@@ -15,8 +15,9 @@ export class ComposeEmailComponent implements OnInit {
   public composeEmailForm: FormGroup;
   newMessage: Message;
   sentSuccessfully: boolean;
-  @ViewChild('receiverUsername') receiverUsername: ElementRef;
-  @ViewChild('senderUsername') senderUsername: ElementRef;
+  @ViewChild('senderIdElement') senderIdElement: ElementRef;
+  @ViewChild('receiverIdElement') receiverIdElement: ElementRef;
+  receiverUsername: string;
 
   constructor(
     private messagesService: MessagesService,
@@ -46,13 +47,15 @@ export class ComposeEmailComponent implements OnInit {
     this.messagesService.sendMessage(this.newMessage).subscribe((response) => {
       this.sentSuccessfully = true;
       this.composeEmailForm.reset();
+      this.receiverIdElement.nativeElement.innerHTML = null;
+      this.senderIdElement.nativeElement.innerHTML = null;
     });
   }
 
   onChangeInput(inputName: string) {
     let userId = this.composeEmailForm.get(inputName).value;
-    let field: ElementRef =
-      inputName == 'receiver' ? this.receiverUsername : this.senderUsername;
+    let inputElement: ElementRef =
+      inputName == 'receiver' ? this.receiverIdElement : this.senderIdElement;
 
     this.http
       .get<{ username: string }>(
@@ -60,13 +63,16 @@ export class ComposeEmailComponent implements OnInit {
       )
       .subscribe(
         (response) => {
-          field.nativeElement.innerHTML = `✓ ${response.username}`;
-          field.nativeElement.style.color = 'green';
+          this.receiverUsername = response.username;
+          inputElement.nativeElement.innerHTML = `✓ ${response.username}`;
+          inputElement.nativeElement.style.color = 'green';
         },
         (err) => {
-          field.nativeElement.innerHTML = `✕ User with id ${userId} not found. Please check the Users List`;
-          field.nativeElement.style.color = 'red';
-          this.composeEmailForm.get(inputName).setErrors({'invalid_username': true});
+          inputElement.nativeElement.innerHTML = `✕ User with id ${userId} not found. Please refer to the Users List.`;
+          inputElement.nativeElement.style.color = 'red';
+          this.composeEmailForm
+            .get(inputName)
+            .setErrors({ invalid_userId: true });
         }
       );
   }

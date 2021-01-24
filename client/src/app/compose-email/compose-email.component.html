@@ -8,7 +8,7 @@
     formControlName="sender"
     (change)="onChangeInput('sender')"
   />
-  <span #senderUsername style="position:relative"></span>
+  <span #senderIdElement style="position:relative"></span>
 
   <!-- Receiver -->
   <input
@@ -18,7 +18,7 @@
     formControlName="receiver"
     (change)="onChangeInput('receiver')"
   />
-  <span #receiverUsername style="position:relative"></span>
+  <span #receiverIdElement style="position:relative"></span>
 
   <!-- Subject -->
   <input
@@ -48,6 +48,6 @@
   </div>
 </form>
 
-<div class="alert alert-success" role="alert" *ngIf="sentSuccessfully">
-  Message sent to {{ newMessage.receiver }} successfully
+<div id="success-message" class="alert alert-success" role="alert" *ngIf="sentSuccessfully"> 
+  Message sent to {{ receiverUsername }} successfully
 </div>
